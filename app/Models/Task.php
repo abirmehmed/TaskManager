@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
-    protected $fillable = ['title', 'description', 'due_date', 'is_completed'];
-    
+    // Use the traditional $fillable property (not attributes)
+    protected $fillable = [
+        'title',
+        'description',
+        'due_date',
+        'is_completed',
+    ];
+
     protected $casts = [
         'due_date' => 'date',
         'is_completed' => 'boolean',
