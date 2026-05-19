@@ -1,58 +1,204 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TaskFlow – Task Manager
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel Version](https://img.shields.io/badge/Laravel-13.x-red.svg)](https://laravel.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.4+-blue.svg)](https://php.net)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-## About Laravel
+**TaskFlow** is a modern, secure, and user-friendly task management web application.  
+It allows authenticated users to create, read, update, delete, and toggle tasks, with tasks sorted by due date. The UI features a glass‑morphism design with a gradient background, making it look like a standalone product – not just another Laravel app.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![TaskFlow Screenshot]![alt text](image.png)
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- 🔐 **User Authentication** – Register, login, logout (Laravel Breeze with Blade).
+- 📝 **Full Task CRUD** – Create, read, update, delete tasks.
+- ✅ **One‑click Toggle** – Mark tasks as complete/incomplete instantly.
+- 📅 **Sorted by Due Date** – Earliest deadlines first.
+- 🛡️ **Authorization** – Users can only edit/delete their own tasks (Laravel Policies).
+- 🧼 **CSRF Protection** – All forms include automatic CSRF tokens.
+- 🎨 **Modern UI** – Gradient background, glass cards, smooth hover effects, custom navigation.
+- 📱 **Responsive** – Works beautifully on desktop, tablet, and mobile.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🧰 Technology Stack
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Category       | Technology                                      |
+|----------------|-------------------------------------------------|
+| Backend        | Laravel 13.x (PHP 8.4+)                         |
+| Frontend       | Blade templates, Tailwind CSS                   |
+| Authentication | Laravel Breeze (Blade stack)                    |
+| Database       | SQLite (development) / MySQL (production ready) |
+| Build Tools    | Vite, NPM                                       |
+| Icons          | Heroicons (SVG)                                 |
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## 🚀 Installation & Setup
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Follow these steps to run the project locally.
 
+### Prerequisites
+- PHP >= 8.4
+- Composer
+- Node.js & NPM
+- SQLite (or MySQL)
+
+### Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/TaskManager.git
+   cd TaskManager
+   ```
+
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
+
+3. **Install Node dependencies & compile assets**
+   ```bash
+   npm install
+   npm run build   # or npm run dev for development
+   ```
+
+4. **Environment configuration**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   - For SQLite: create an empty database file `touch database/database.sqlite` and set `DB_CONNECTION=sqlite` in `.env`.
+   - For MySQL: update `.env` with your database credentials.
+
+5. **Run migrations**
+   ```bash
+   php artisan migrate
+   ```
+
+6. **Start the development server**
+   ```bash
+   php artisan serve
+   ```
+
+7. **Visit** `http://127.0.0.1:8000`  
+   Register a new account and start managing your tasks.
+
+---
+
+## 📸 Screenshots
+
+*(Add actual screenshots here)*
+
+| Landing Page | Task List | Create Task |
+|-------------|-----------|-------------|
+| ![Landing](https://via.placeholder.com/300x200?text=Landing) | ![Tasks](https://via.placeholder.com/300x200?text=Tasks) | ![Create](https://via.placeholder.com/300x200?text=Create) |
+
+---
+
+## 🗂️ Database Schema
+
+### `tasks` table
+
+| Column       | Type                | Description                    |
+|--------------|---------------------|--------------------------------|
+| id           | bigint (PK)         | Auto‑increment                 |
+| user_id      | foreignId           | References `users.id` (cascade)|
+| title        | string(255)         | Task title (required)          |
+| description  | text (nullable)     | Optional details               |
+| due_date     | date (nullable)     | Optional deadline              |
+| is_completed | boolean             | Default `false`                |
+| timestamps   | created_at, updated_at |                               |
+
+---
+
+## 🧪 Testing
+
+Run Laravel’s built-in tests (if any):
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php artisan test
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Manual testing checklist:
+- Register a new user → redirected to dashboard.
+- Create a task with title, description, due date.
+- See task appear in the list, sorted by due date.
+- Click the circle to mark complete → becomes ✅ and strikethrough.
+- Edit task → update any field.
+- Delete task → confirm deletion.
+- Try accessing another user’s task via URL → 403 error (policy works).
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🎨 Customisation
 
-## Code of Conduct
+- **Colors & gradients** – Edit the `background` style in `resources/views/layouts/app.blade.php` and `guest.blade.php`.
+- **Fonts** – Change the Google Font link in the `<head>`.
+- **Logo** – Replace the “TaskFlow” text with your own logo (or use an image).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 📁 Project Structure Highlights
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+TaskManager/
+├── app/
+│   ├── Http/Controllers/TaskController.php
+│   ├── Models/Task.php
+│   └── Policies/TaskPolicy.php
+├── database/migrations/..._create_tasks_table.php
+├── resources/views/
+│   ├── layouts/
+│   │   ├── app.blade.php
+│   │   └── guest.blade.php
+│   ├── tasks/
+│   │   ├── index.blade.php
+│   │   ├── create.blade.php
+│   │   └── edit.blade.php
+│   └── auth/ (login, register)
+└── routes/web.php
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request.
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/amazing-feature`).
+3. Commit your changes (`git commit -m 'Add some amazing feature'`).
+4. Push to the branch (`git push origin feature/amazing-feature`).
+5. Open a Pull Request.
+
+---
+
+## 📄 License
+
+This project is open‑source and available under the [MIT License](LICENSE).
+
+---
+
+## 🙏 Acknowledgements
+
+- [Laravel](https://laravel.com) – The PHP framework.
+- [Tailwind CSS](https://tailwindcss.com) – Utility‑first CSS.
+- [Heroicons](https://heroicons.com) – Beautiful SVG icons.
+- [Google Fonts](https://fonts.google.com) – Inter font.
+
+---
+
+**Built with ❤️ using Laravel and Tailwind CSS.**  
+*Stay organized. Stay productive.*
+```
+
+---
+
+## ✅ What to do next
+
+1. **Replace placeholder screenshots** – Take actual screenshots of your app and update the image links.
+2. **Add a proper license file** (if not already present) – run `touch LICENSE` and paste MIT text.
+3. **Push to GitHub** and enjoy your polished project.
+
